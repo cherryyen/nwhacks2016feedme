@@ -3,19 +3,19 @@ $(document).ready(function(){
 		$("#ingButton").hide();
 		$("#addIngredientMenu").show();
 		$('#b1').prop('disabled', true);
-	})
+	});
+
 	var next = 1; 
 
 	function addIngredientCheck() {
-	$("#ingText" + next).each(function () {
-    	$(this).keyup(function () {
-        	$('#b1').prop('disabled', CheckInputs());
-    	});
-	});
+		$("#ingText" + next).each(function () {
+	    	$(this).keyup(function () {
+	        	$('#b1').prop('disabled', CheckInputs());
+	    	});
+		});
 
 		function CheckInputs() {
 			var valid = false; 
-			alert('check');
 			$(".inputText").each(function () {
        			if (valid) { return valid; }
         		valid = !$.trim($(this).val());
@@ -53,24 +53,65 @@ $(document).ready(function(){
 				alert(ingID);
 				$(this).remove();
 				$(ingID).remove(); 
+				alert(next);
 			});
 		});
+
+	$("#addIngredients").click(function(e){
+		e.preventDefault(); 
+		var checkIngredient = "#ingText" + next; 
+		var ingredientText = $(checkIngredient);
+		while (next != 0) {
+			if (ingredientText.val() !== undefined) {
+				alert("Oh look value for:" + next + " and ingredient: " + ingredientText.val());
+				addIngredientToDB(ingredientText.val());
+			}	
+			next = next - 1; 
+			checkIngredient = "#ingText" + next; 
+			ingredientText = $(checkIngredient);
+		}
+	});
+
+	function addIngredientToDB(ingName) {
+		$.ajax({
+			url: './index.php',
+			type: 'POST',
+			data: {'name': ingName},
+			success: function(data) {
+				alert("asdfasdfadf");
+				console.log(data);
+				$("#addIngredientMenu").hide();
+				$("#ingButton").show();
+
+				$("#food-content").html(data)
+
+			}
+		});
+
+		
+		//load();
+	}
 });
 
+/*
 function load(){
-if(window.XMLHttpRequest)
-    {
-    xmlhttp=new XMLHttpRequest();
-    }
-else
-    {
-    xmlhttp=new ActiveXObject('Microsoft.XMLHTTP');
-    }
-xmlhttp.onreadystatechange=function(){
-if(xmlhttp.readyState==4 && xmlhttp.status==200){
-    document.getElementById('food-content').innerHTML=xmlhttp.responseText;
+	if(window.XMLHttpRequest)
+	{
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{
+		xmlhttp=new ActiveXObject('Microsoft.XMLHTTP');
+	}
+
+	http.setRequestHeader("")
+
+	xmlhttp.onreadystatechange=function(){
+		if(xmlhttp.readyState==4 && xmlhttp.status==200){
+			document.getElementById('food-content').innerHTML=xmlhttp.responseText;
+		}
+	}
+	xmlhttp.open('get', './index.php', true);
+	xmlhttp.send();
 }
-}
-xmlhttp.open('GET', './connection.php', true);
-xmlhttp.send();
-}
+*/

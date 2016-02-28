@@ -1,9 +1,4 @@
 <?php
-
-echo "<script>
-alert('yayyyy');
-</script>";
-
 $servername = "85.10.205.173";
 $username = "food";
 $password = "givemefood";
@@ -18,18 +13,19 @@ if (!$conn) {
 }
 echo "Connected successfully";
 
+//echo "<script>alert('yay')</script>";
 
-//if($_POST['name'] == "asdfasdf")
+$data = $_POST['name'];
 
-/*
-$sql = "INSERT INTO Ingredient (Name)
-VALUES ('Ketchup')";
+
+$sql = "INSERT INTO User_Ingredient (Name)
+VALUES ('" . $data. "')";
 
 if ($conn->query($sql) === TRUE) {
     echo "New record created successfully";
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
-*/
+
 $conn->close();
 ?>
