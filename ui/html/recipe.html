@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -12,7 +11,7 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script src="js/databaseconnection.js"></script>
+	<script src="js/recipe.js"></script>
 
 
 </head>
@@ -38,32 +37,18 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="index.html">HOME <span class="sr-only">(current)</span></a></li>
-        <li><a href="ingredients.php">MY INGREDIENTS <span class="sr-only">(current)</span></a></li>
+        <li><a href="ingredient.html">MY INGREDIENTS <span class="sr-only">(current)</span></a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
 
-<div id="food-content">
-	<center>
-
-		<button type="submit" class="btn btn-default" id="ingButton">Add Ingredients</button>
-
-    <input type="hidden" name="count" value="1" />
-    <div id="addIngredientMenu" style="display: none;">
-      <h1> Type your ingredients in below: </h1>
-      <form class="input-ingredients">
-        <div id ="inputIng">
-          <input type="text" class="inputText" id="ingText1" name="ing1" text="" /><button class="btn btn-success btn-add" id="b1">+</button>
-        </div>
-          <br>
-          <br>
-          <button class="btn btn-default" id="addIngredients">Submit</button>
-        </div>
-      </form>
-    </div>
-
-	</center>
+<div id="recipe-content">
+	<h1 id="recipeName"></h1>
+  <div id="recipeInfo" class="row">
+    <div class="col-md-6" id="recipeProcedures"></div>
+    <div class="col-md-6" id="recipeImage"></div>
+  </div>
 </div>
 
 

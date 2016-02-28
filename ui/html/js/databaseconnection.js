@@ -3,6 +3,7 @@ $(document).ready(function(){
 		$("#ingButton").hide();
 		$("#addIngredientMenu").show();
 		$('#b1').prop('disabled', true);
+		$('#addIngredients').prop('disabled', true);
 	});
 
 	var next = 1; 
@@ -11,6 +12,7 @@ $(document).ready(function(){
 		$("#ingText" + next).each(function () {
 	    	$(this).keyup(function () {
 	        	$('#b1').prop('disabled', CheckInputs());
+	        	$('#addIngredients').prop('disabled', CheckInputs);
 	    	});
 		});
 
@@ -43,7 +45,8 @@ $(document).ready(function(){
 		$(addRemove).after(setRemove); 
 		$("inputIng" + next).attr('data-source',$(addBtn).attr('data-source'));
 		$("#count").val(next);
-		$('#b1').prop('disabled', true);
+		//$('#b1').prop('disabled', true);
+
 		addIngredientCheck();
 
 			$(".remove-me").click(function(e){
@@ -63,9 +66,9 @@ $(document).ready(function(){
 		var ingredientText = $(checkIngredient);
 		while (next != 0) {
 			if (ingredientText.val() !== undefined) {
-				alert("Oh look value for:" + next + " and ingredient: " + ingredientText.val());
+				//alert("Oh look value for:" + next + " and ingredient: " + ingredientText.val());
 				addIngredientToDB(ingredientText.val());
-			}	
+			}
 			next = next - 1; 
 			checkIngredient = "#ingText" + next; 
 			ingredientText = $(checkIngredient);
@@ -78,40 +81,129 @@ $(document).ready(function(){
 			type: 'POST',
 			data: {'name': ingName},
 			success: function(data) {
-				alert("asdfasdfadf");
 				console.log(data);
 				$("#addIngredientMenu").hide();
+				$('#addIngredients').prop('disabled', true);
 				$("#ingButton").show();
+				//$('.input-ingredients').trigger("reset");
+				//$("#food-content").html(data)
+			}
+		});
+	}
 
-				$("#food-content").html(data)
+	$(document).ready(function(){
+	$("#categories").hide();
+	$("#all").hide();
+	$("#breakf").hide();
+	$("#lunchf").hide();
+	$("#dinnerf").hide();
+	$("#dessertf").hide();
+    $("#makeFood").click(function(){
+        $("#ingredients").hide();
+        $("#categories").show();
+    });
+    $("#allFood").click(function(){
+        $("#ingredients").hide();
+        $("#categories").hide();
+        $("#all").show();
+    });
+    $("#breakfast").click(function(){
+        $("#ingredients").hide();
+        $("#categories").hide();
+        $("#all").hide();
+        $("#breakf").show();
+    });
+    $("#lunch").click(function(){
+        $("#ingredients").hide();
+        $("#categories").hide();
+        $("#all").hide();
+        $("#breakf").hide();
+        $("#lunchf").show();
+    });
+    $("#dinner").click(function(){
+        $("#ingredients").hide();
+        $("#categories").hide();
+        $("#all").hide();
+        $("#breakf").hide();
+        $("#lunchf").hide();
+        $("#dinnerf").show();
+    });
+    $("#dessert").click(function(){
+        $("#ingredients").hide();
+        $("#categories").hide();
+        $("#all").hide();
+        $("#breakf").hide();
+        $("#lunchf").hide();
+        $("#dinnerf").hide();
+        $("#dessertf").show();
+    });
+
+
+     $("input[name = 'break']").click(function(){
+    	var recipeName = this.value; 
+   		getRecipe(recipeName)
+	});
+     $("input[name = 'lunch']").click(function(){
+    	//do stuff
+	});
+     $("input[name = 'dindin']").click(function(){
+    	//do stuff
+	});
+     $("input[name = 'dessert']").click(function(){
+
+     }); 
+
+
+	$("#ingButton").click(function(){
+		$("#ingButton").hide();
+		$("#addIngredientMenu").show();
+		$('#b1').prop('disabled', true);
+		$('#addIngredients').prop('disabled', true);
+	});
+
+	var recipeName; 
+	var recipeDes; 
+	var recipeProcedure; 
+
+	function getRecipe(recipeName) {
+		$.ajax({
+			url: './recipe.php',
+			type: 'POST',
+			data: {'txt' : recipeName},
+			success: function(result) {
+				//$("#recipeProcedures").html(data)
+				console.log(data); 
+
+
+				var data = $.parseJSON(result); 
+				/*	
+				for (i = 0; i < data.length; ++i) {
+					recipeName = data[i].txt;
+					recipeDes = data[i].des;
+				}
+				*/
+
+				for (i  = 0; i < data.length; ++i) {
+					console.log(data[i])
+					recipeName = data[i].txt;
+					recipeDes = data[i].des;
+					recipeProcedure = data[i].proc;
+				}
+
+
+				$("#recipeName").text(recipeName);
+				$("#recipeProcedures").text(recipeDes);
+				$("#recipeProcedures").append('<br><br><p>' + recipeProcedure + '</p>');
 
 			}
 		});
-
-		
-		//load();
 	}
+
+	getRecipe();
+
+
+
+
+});
 });
 
-/*
-function load(){
-	if(window.XMLHttpRequest)
-	{
-		xmlhttp=new XMLHttpRequest();
-	}
-	else
-	{
-		xmlhttp=new ActiveXObject('Microsoft.XMLHTTP');
-	}
-
-	http.setRequestHeader("")
-
-	xmlhttp.onreadystatechange=function(){
-		if(xmlhttp.readyState==4 && xmlhttp.status==200){
-			document.getElementById('food-content').innerHTML=xmlhttp.responseText;
-		}
-	}
-	xmlhttp.open('get', './index.php', true);
-	xmlhttp.send();
-}
-*/

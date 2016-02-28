@@ -1,3 +1,9 @@
+<script>
+    // We define the variable and update it in a php
+    // function defined in functions.php
+    var giveme; 
+</script>
+
 <?php
 $servername = "85.10.205.173";
 $username = "food";
@@ -13,18 +19,9 @@ if (!$conn) {
 }
 echo "Connected successfully";
 
+$giveme = "why you no pass";
 
-//if($_POST['name'] == "asdfasdf")
+echo $giveme;
+//echo json_encode($test);
 
-/*
-$sql = "INSERT INTO Ingredient (Name)
-VALUES ('Ketchup')";
-
-if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
-*/
-$conn->close();
 ?>

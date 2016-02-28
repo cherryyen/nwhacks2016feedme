@@ -5,3 +5,36 @@
 #b1 {
 	margin: 0px;
 }
+
+#addIngredientMenu {
+	background-color: #9AFE2E;
+	border: solid green 5px;
+	width: 50%;
+  	margin-left: auto ;
+  	margin-right: auto ;
+  	overflow: auto;
+}
+
+#recipeInfo {
+	background-color: #9AFE2E;
+	width: 80%;
+	margin-left: auto ;
+  	margin-right: auto ;
+	border: solid green 5px;
+	overflow: auto;
+
+}
+
+.collapse navbar-collapse {
+	background-color: #BBDF7F;
+
+}
+
+.body {
+	background-color: #FE8B78;
+
+}
+
+#recipes {
+	height: 0px;
+}
